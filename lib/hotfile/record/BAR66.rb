@@ -1,18 +1,25 @@
-class Hotfile::Record::BAR66 < Hotfile::Record::Record
-  ## Additional Information–Form of Payment Record
+# frozen_string_literal: true
 
-  def initialize(line)
-    sequence_number, payment_information, reserved =
-      line.scan(%r{
-        (\d)
-        (.{50})
-        (.{45})
-      }x).flatten
+class Hotfile
+  class Record
+    ## Additional Information–Form of Payment Record
+    class BAR66 < Record
+      def initialize(line)
+        super
 
-    @data = {
-      sequence_number: sequence_number.to_i,
-      payment_information: payment_information.strip,
-      reserved: reserved.strip
-    }
+        sequence_number, payment_information, reserved =
+          line.scan(/
+            (\d)
+            (.{50})
+            (.{45})
+          /x).flatten
+
+        @data = {
+          sequence_number: sequence_number.to_i,
+          payment_information: payment_information.strip,
+          reserved: reserved.strip
+        }
+      end
+    end
   end
 end

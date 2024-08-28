@@ -1,18 +1,25 @@
-class Hotfile::Record::BKF81 < Hotfile::Record::Record
-  ## Fare Calculation Record
+# frozen_string_literal: true
 
-  def initialize(line)
-    sequence_number, info, reserved =
-      line.scan(%r{
-        (\d)
-        (.{87})
-        (.{8})
-      }x).flatten
+class Hotfile
+  class Record
+    ## Fare Calculation Record
+    class BKF81 < Record
+      def initialize(line)
+        super
 
-    @data = {
-      sequence_number: sequence_number.to_i,
-      info: info.strip,
-      reserved: reserved.strip
-    }
+        sequence_number, info, reserved =
+          line.scan(/
+            (\d)
+            (.{87})
+            (.{8})
+          /x).flatten
+
+        @data = {
+          sequence_number: sequence_number.to_i,
+          info: info.strip,
+          reserved: reserved.strip
+        }
+      end
+    end
   end
 end
