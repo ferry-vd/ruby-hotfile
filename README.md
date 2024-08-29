@@ -35,3 +35,7 @@ Parse a file into a ruby structure, returning the encoded lines is a more readab
 Extract transaction information:
 
     Hotfile.new(file).transactions
+
+## Official documentation
+
+https://www.iata.org/en/publications/bspdish/
