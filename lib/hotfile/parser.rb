@@ -6,8 +6,12 @@ class Hotfile
     def parse
       return if @file.nil?
 
+      records = @file.lines(chomp: true).map { |line| parse_line line }
       @parse ||= {
-        records: @file.lines(chomp: true).map { |line| parse_line line }
+        records: records,
+        date: records.map { |x| x[:date] }.compact.first,
+        doc_nr: records.map { |x| x[:doc_nr] }.compact.first,
+        transactions: records.map { |x| x[:transaction] }.compact.uniq.count
       }
     end
 
@@ -39,7 +43,7 @@ class Hotfile
       data = record_parser.new(payload).parse if record_parser
 
       {
-        code: code,
+        code: { id: code, category: code1, number: code2.to_i },
         line_number: line_number,
         raw_payload: payload.strip,
         date: Hotfile::Date.new(date).to_date,

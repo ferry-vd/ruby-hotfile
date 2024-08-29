@@ -47,7 +47,7 @@ class HotfileTest < Minitest::Test
     # BKS24
     data = hotfile.parse_line('BKS00000005242408060000013905822054200 3FFVV   57231064                TKTTBRUBRU    QH7TWU/F1    1439                                  ')
     assert_equal 'TKTT', data[:data][:transaction_code]
-    assert_equal 'BKS24', data[:code]
+    assert_equal 'BKS24', data[:code][:id]
     assert_equal 5, data[:line_number]
     assert_equal Date.new(2024, 8, 6), data[:date]
     assert_equal 1, data[:transaction]

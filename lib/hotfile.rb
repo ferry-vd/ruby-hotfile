@@ -8,8 +8,10 @@ class Hotfile
 
   require 'hotfile/parser'
   require 'hotfile/record'
+  require 'hotfile/transaction'
 
   include Hotfile::Parser
+  include Hotfile::Transaction
 
   LINE_LENGTH = 136
 
